@@ -1,0 +1,42 @@
+<h1>Cocktails</h1>
+<%= link_to "New cocktail", new_cocktail_path %>
+<div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+  <!--Controls-->
+  <div class="controls-top">
+    <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-left"></i></a>
+    <a class="btn-floating" href="#multi-item-example" data-slide="next"><i
+        class="fas fa-chevron-right"></i></a>
+  </div>
+  <!--/.Controls-->
+  <!--Indicators-->
+  <ol class="carousel-indicators">
+    <% @cocktails.each_with_index do |cocktail, i| %>
+      <li data-target="#multi-item-example" data-slide-to="<%= i %>" class="active"></li>
+    <% end %>
+  </ol>
+  <!--/.Indicators-->
+  <!--Slides-->
+  <div class="carousel-inner" role="listbox">
+    <!--First slide-->
+    <% @cocktails.each_with_index do |cocktail, i| %>
+      <div class="carousel-item <%= i.zero? ? 'active' : '' %>">
+        <div class="card-background d-flex justify-content-center">
+          <%= link_to cocktail_path(cocktail) do %>
+            <div class="card" style="width: 24rem;">
+              <%= image_tag cocktail.image, class: "card-img-top" %>
+              <div class="card-body">
+                <h5 class="card-title"><%= cocktail.name %></h5>
+                <p class="card-text text-decoration-none"><% cocktail.ingredients.each do |ingredient| %>
+                    <p><%= ingredient.name %></p>
+                  <% end %></p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <!--/.Slides-->
+</div>
+<!--/.Carousel Wrapper-->
